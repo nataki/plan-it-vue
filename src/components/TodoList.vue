@@ -2,6 +2,10 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useTodos } from "@/stores/todos.ts";
+import Button from "primevue/button";
+import InputText from "primevue/inputtext";
+import RadioButton from "primevue/radiobutton";
+import Checkbox from "primevue/checkbox";
 
 const todosStore = useTodos();
 const { filter, filteredTodos } = storeToRefs(todosStore);
@@ -19,24 +23,59 @@ function addTodo() {
 </script>
 
 <template>
-  <label><input v-model="filter" type="radio" value="all" /> All</label>
-  <label
-    ><input v-model="filter" type="radio" value="finished" /> Finished</label
-  >
-  <label
-    ><input v-model="filter" type="radio" value="unfinished" />
-    Unfinished</label
-  >
+  <div class="flex flex-wrap gap-4 py-4">
+    <div class="flex items-center gap-2">
+      <RadioButton v-model="filter" inputId="all" name="all" value="all" />
+      <label for="all">All</label>
+    </div>
+    <div class="flex items-center gap-2">
+      <RadioButton
+        v-model="filter"
+        inputId="finished"
+        name="finished"
+        value="finished"
+      />
+      <label for="finished">Finished</label>
+    </div>
+    <div class="flex items-center gap-2">
+      <RadioButton
+        v-model="filter"
+        inputId="unfinished"
+        name="unfinished"
+        value="unfinished"
+      />
+      <label for="unfinished">Unfinished</label>
+    </div>
+  </div>
+
   <hr />
-  <ul>
-    <li v-for="todo in filteredTodos" :key="todo.id">
-      <input v-model="todo.isFinished" type="checkbox" />
-      {{ todo.text }}
-    </li>
-  </ul>
-  <label>
-    New Todo:
-    <input v-model="newTodoText" type="text" @keypress.enter="addTodo" />
-  </label>
-  <button :disabled="!newTodoText" @click="addTodo">Add</button>
+
+  <div class="flex flex-wrap gap-4 flex-col py-4">
+    <div
+      v-for="todo in filteredTodos"
+      :key="todo.id"
+      class="flex items-center gap-2"
+    >
+      <Checkbox
+        v-model="todo.isFinished"
+        inputId="todo.id"
+        name="todo.id"
+        value="todo.id"
+      />
+      <label for="todo.id"> {{ todo.text }} </label>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap gap-2">
+    <label for="newTodo">
+      New Todo:
+      <InputText
+        v-model="newTodoText"
+        inputId="newTodo"
+        type="text"
+        @keypress.enter="addTodo"
+      />
+    </label>
+    <Button :disabled="!newTodoText" @click="addTodo">Add</Button>
+  </div>
 </template>
