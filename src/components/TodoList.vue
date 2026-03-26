@@ -13,9 +13,18 @@ const { filteredTodos } = storeToRefs(useTodos());
 
   <hr />
 
-  <div class="flex flex-wrap flex-col py-4">
+  <div class="todo-grid">
     <TodoItem v-for="todo in filteredTodos" :key="todo.id" :todo="todo" />
   </div>
 
   <TodoAddForm />
 </template>
+<style scoped>
+.todo-grid {
+  padding: 16px 8px;
+  display: grid;
+  grid-template-columns: 30px 1fr 70px 100px min-content;
+  grid-column-gap: 4px;
+  align-items: center;
+}
+</style>

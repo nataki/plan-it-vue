@@ -6,10 +6,16 @@ import InputText from "primevue/inputtext";
 
 const todosStore = useTodos();
 const newTodoText = ref("");
+const isNewTodoUrgent = ref(false);
+const isNewTodoImportant = ref(false);
 
 function addTodo() {
   if (!newTodoText.value) return;
-  todosStore.addTodo(newTodoText.value);
+  todosStore.addTodo({
+    text: newTodoText.value,
+    isImportant: isNewTodoImportant.value,
+    isUrgent: isNewTodoUrgent.value,
+  });
   newTodoText.value = "";
 }
 </script>
@@ -26,6 +32,28 @@ function addTodo() {
         @keydown.enter="addTodo"
       />
     </label>
+    <Button
+      icon="pi pi-bolt"
+      rounded
+      variant="outlined"
+      label="Urgent"
+      :class="{
+        'border-gray-500! text-gray-500!': !isNewTodoUrgent,
+        'border-yellow-500! text-yellow-500!': isNewTodoUrgent,
+      }"
+      @click="isNewTodoUrgent = !isNewTodoUrgent"
+    />
+    <Button
+      :icon="isNewTodoImportant ? 'pi pi-star-fill' : 'pi pi-star'"
+      rounded
+      variant="outlined"
+      label="Important"
+      :class="{
+        'border-gray-500! text-gray-500!': !isNewTodoImportant,
+        'border-blue-500! text-blue-500!': isNewTodoImportant,
+      }"
+      @click="isNewTodoImportant = !isNewTodoImportant"
+    />
     <Button :disabled="!newTodoText" @click="addTodo">Add</Button>
   </div>
 </template>
