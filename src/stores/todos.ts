@@ -36,5 +36,9 @@ export const useTodos = defineStore("todos", {
     removeTodo(id: number) {
       this.todos = this.todos.filter((t) => t.id !== id);
     },
+    toggleTodo(id: number) {
+      const todo = this.todos.find((t) => t.id === id);
+      if (todo) todo.isFinished = !todo.isFinished;
+    },
   },
 });

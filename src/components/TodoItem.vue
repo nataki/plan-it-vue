@@ -4,26 +4,27 @@ import type { Todo } from "@/stores/todos.ts";
 import Button from "primevue/button";
 import Checkbox from "primevue/checkbox";
 
-const props = defineProps<{ todo: Todo }>();
+const { todo } = defineProps<{ todo: Todo }>();
 const todosStore = useTodos();
 </script>
 
 <template>
   <div class="flex items-center gap-2">
     <Checkbox
-      v-model="props.todo.isFinished"
-      :inputId="`todo-${props.todo.id}`"
-      :name="`todo-${props.todo.id}`"
-      :value="props.todo.id"
+      :modelValue="todo.isFinished"
+      :inputId="`todo-${todo.id}`"
+      :name="`todo-${todo.id}`"
+      binary
+      @value-change="todosStore.toggleTodo(todo.id)"
     />
-    <label :for="`todo-${props.todo.id}`">{{ props.todo.text }}</label>
+    <label :for="`todo-${todo.id}`">{{ todo.text }}</label>
     <Button
       icon="pi pi-times"
       severity="contrast"
       rounded
       variant="text"
-      :aria-label="`Delete ${props.todo.text}`"
-      @click="todosStore.removeTodo(props.todo.id)"
+      :aria-label="`Delete ${todo.text}`"
+      @click="todosStore.removeTodo(todo.id)"
     />
   </div>
 </template>
