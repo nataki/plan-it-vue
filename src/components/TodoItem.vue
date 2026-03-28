@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTodos } from "@/stores/todos.ts";
-import type { Todo } from "@/stores/todos.ts";
+import type { Todo } from "@/types/todo.ts";
 import Button from "primevue/button";
 import Checkbox from "primevue/checkbox";
 

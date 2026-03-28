@@ -37,6 +37,7 @@ function addTodo() {
       rounded
       variant="outlined"
       label="Urgent"
+      size="small"
       :class="{
         'border-gray-500! text-gray-500!': !isNewTodoUrgent,
         'border-yellow-500! text-yellow-500!': isNewTodoUrgent,
@@ -52,6 +53,7 @@ function addTodo() {
         'border-gray-500! text-gray-500!': !isNewTodoImportant,
         'border-blue-500! text-blue-500!': isNewTodoImportant,
       }"
+      size="small"
       @click="isNewTodoImportant = !isNewTodoImportant"
     />
     <Button :disabled="!newTodoText" @click="addTodo">Add</Button>

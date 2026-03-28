@@ -1,12 +1,5 @@
 import { defineStore } from "pinia";
-
-export interface Todo {
-  text: string;
-  id: number;
-  isUrgent: boolean;
-  isImportant: boolean;
-  isFinished: boolean;
-}
+import type { Todo } from "@/types/todo.ts";
 
 export const useTodos = defineStore("todos", {
   state: () => ({
