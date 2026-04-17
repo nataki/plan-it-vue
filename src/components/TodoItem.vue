@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useTodos } from "@/stores/todos.ts";
 import type { Todo } from "@/types/todo.ts";
-import Button from "primevue/button";
 import Checkbox from "primevue/checkbox";
+import UrgentButton from "./UrgentButton.vue";
+import ImportantButton from "./ImportantButton.vue";
 
 const { todo } = defineProps<{ todo: Todo }>();
 const todosStore = useTodos();
@@ -16,28 +17,18 @@ const todosStore = useTodos();
     binary
     @value-change="todosStore.toggleTodo(todo.id)"
   />
-  <label :for="`todo-${todo.id}`">{{ todo.text }}</label>
+  <label class="text-left" :for="`todo-${todo.id}`">{{ todo.text }}</label>
   <div class="flex justify-around align-baseline">
-    <Button
-      icon="pi pi-bolt"
-      variant="text"
-      :class="{
-        'text-gray-500!': !todo.isUrgent,
-        'text-yellow-500!': todo.isUrgent,
-      }"
-      @click="todosStore.toggleUrgent(todo.id)"
+    <UrgentButton
+      mode="icon"
+      :model-value="todo.isUrgent"
+      @update:model-value="todosStore.toggleUrgent(todo.id)"
     />
-    <Button
-      :icon="todo.isImportant ? 'pi pi-star-fill' : 'pi pi-star'"
-      variant="text"
-      :class="{
-        'text-gray-500!': !todo.isImportant,
-        'text-blue-500!': todo.isImportant,
-      }"
-      @click="todosStore.toggleImportant(todo.id)"
+    <ImportantButton
+      mode="icon"
+      :model-value="todo.isImportant"
+      @update:model-value="todosStore.toggleImportant(todo.id)"
     />
-    <!--    <i v-if="todo.isUrgent" class="pi pi-bolt text-yellow-500"></i>-->
-    <!--    <i v-if="todo.isImportant" class="pi pi-star text-blue-500"></i>-->
   </div>
   <div>
     <span v-if="todo.isUrgent && todo.isImportant">Do First</span>

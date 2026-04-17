@@ -11,6 +11,7 @@ import TaskPool from "@/components/TaskPool.vue";
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </header>
+    <nav class="page-nav">Nav</nav>
     <main class="page-main">
       <article>
         <RouterView />
@@ -59,7 +60,7 @@ nav a:first-of-type {
 
   display: grid;
   grid-template-columns: minmax(10px, 1fr) minmax(10px, 3fr);
-  grid-template-rows: min-content 1fr min-content;
+  grid-template-rows: min-content min-content 1fr min-content;
   gap: 1px;
 
   > * {
@@ -85,7 +86,9 @@ nav a:first-of-type {
   grid-column: 1 / 2;
   grid-row: 2 / 4;
 }
-
+.page-nav {
+  grid-column: 2 / 3;
+}
 .page-main {
   grid-column: 2 / 3;
 }

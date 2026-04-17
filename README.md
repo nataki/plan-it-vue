@@ -1,73 +1,87 @@
-# .
+# plan-it-vue
 
-This template should help get you started developing with Vue 3 in Vite.
+A task management app built with Vue 3. Tasks are organized by urgency and importance using the [Eisenhower matrix](https://en.wikipedia.org/wiki/Time_management#The_Eisenhower_Method), with a **Task Pool** sidebar for capturing ideas before committing them to the main list.
 
-## Recommended IDE Setup
+## Features
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Todo list** — add, complete, and delete tasks
+- **Urgency & importance flags** — toggle per task; automatically labelled by quadrant:
+  - Urgent + Important → **Do First**
+  - Urgent + Not Important → **Delegate**
+  - Not Urgent + Important → **Schedule**
+  - Not Urgent + Not Important → **Eliminate**
+- **Filter** — view All / Finished / Unfinished todos
+- **Task Pool** — staging area in the sidebar; add tasks with urgency/importance flags and promote them to the main list when ready
+- **Persistence** — both stores are persisted to `localStorage` via `pinia-plugin-persistedstate`
+- **Responsive layout** — two-column grid on desktop, single column on mobile (< 600px)
 
-## Recommended Browser Setup
+## Tech stack
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+| Layer | Library |
+|-------|---------|
+| Framework | Vue 3 + TypeScript |
+| Routing | Vue Router 5 |
+| State | Pinia 3 |
+| UI components | PrimeVue 4 (Aura theme) + PrimeIcons |
+| Styling | Tailwind CSS 4 |
+| Build | Vite 7 |
+| Unit tests | Vitest |
+| E2E tests | Playwright |
+| Linting | ESLint + OxLint + Prettier |
 
-## Type Support for `.vue` Imports in TS
+## Project structure
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+```
+src/
+├── types/
+│   └── todo.ts          # Shared Todo interface
+├── stores/
+│   ├── todos.ts         # Main task list store
+│   └── pool.ts          # Task pool store
+├── components/
+│   ├── TodoList.vue     # Todo list container
+│   ├── TodoItem.vue     # Individual todo row
+│   ├── TodoFilter.vue   # Filter radio buttons
+│   ├── TodoAddForm.vue  # New todo form
+│   ├── TaskPool.vue     # Sidebar task pool
+│   └── PoolItem.vue     # Individual pool item
+└── views/
+    ├── HomeView.vue     # Main page
+    └── AboutView.vue    # About page
+```
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Setup
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Development
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Build
 
 ```sh
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### Test
 
 ```sh
-npm run test:unit
+npm run test:unit   # Vitest unit tests
+npm run test:e2e    # Playwright e2e tests
 ```
 
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
+### Lint & format
 
 ```sh
-# Install browsers for the first run
-npx playwright install
-
-# When testing on CI, must build the project first
-npm run build
-
-# Runs the end-to-end tests
-npm run test:e2e
-# Runs the tests only on Chromium
-npm run test:e2e -- --project=chromium
-# Runs the tests of a specific file
-npm run test:e2e -- tests/example.spec.ts
-# Runs the tests in debug mode
-npm run test:e2e -- --debug
+npm run lint    # ESLint + OxLint
+npm run format  # Prettier
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## Requirements
 
-```sh
-npm run lint
-```
+Node `^20.19.0` or `>=22.12.0`

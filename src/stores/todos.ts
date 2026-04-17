@@ -9,12 +9,6 @@ export const useTodos = defineStore("todos", {
   }),
   persist: true,
   getters: {
-    finishedTodos(state) {
-      return state.todos.filter((todo) => todo.isFinished);
-    },
-    unfinishedTodos(state) {
-      return state.todos.filter((todo) => !todo.isFinished);
-    },
     filteredTodos(state) {
       if (state.filter === "finished") {
         return state.todos.filter((todo) => todo.isFinished);
